@@ -1,5 +1,5 @@
 const {DataTypes, Sequelize, Association} = require('sequelize');
-const bycrypt = require('bycrypt');
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize) => {
     const User = sequelize.define('User', {
@@ -22,14 +22,14 @@ module.exports = (sequelize) => {
             // antes de salvar ele criptografa a senha
             beforeCreate: async (user) => {
                 if (user.password) {
-                    const salt = await bycrypt.genSalt(10);
-                    user.password = await bycrypt.hash(user.password, salt);
+                    const salt = await bcrypt.genSalt(10);
+                    user.password = await bcrypt.hash(user.password, salt);
                 }
             },
             beforeUpdate: async (user) => {
                 if (user.password) {
-                    const salt = await bycrypt.genSalt(10);
-                    user.password = await bycrypt.hash(user.password, salt);
+                    const salt = await bcrypt.genSalt(10);
+                    user.password = await bcrypt.hash(user.password, salt);
                 }
             }
         }
@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
 
     // metodo personalizado
     User.prototype.checkpassword = async function(password) {
-        return await bycrypt.compare(password, this.password);
+        return await bcrypt.compare(password, this.password);
     };
 
     return User;

@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
         Movie.belongsTo(models.User, {foreignKey: 'userId', as: 'user'});
 
         // associação com category (muitos filmes podem pertencer a muitas categorias)
-        Movie.belongsToMany(models.Category,{through: 'MovieCategory'});
+        Movie.belongsToMany(models.Category,{through: 'MovieCategories', as: 'categories'});
     }
 
     return Movie;

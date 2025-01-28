@@ -16,7 +16,3 @@ app.use('/users', userRoutes);
 
 // conexão com banco de dados
 mongoose.connect(process.env.MONGO_URI, )
-
-
-
-
